@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html><head><title>Limpando cache...</title></head>
+<body style="background:#0a0620;color:#f0ebfa;font-family:monospace;padding:40px;text-align:center;">
+<h2>Limpando dados pigeonz...</h2>
+<script>
+const keys = [
+  "pigeonz_accounts",
+  "pigeonz_notif_read",
+  "pigeonz_comissoes",
+  "pigeonz_comissoes_chat",
+  "pigeonz_comprovantes",
+  "pigeonz_proposta",
+  "pigeonz_proposta_v",
+  "pigeonz_pagamentos",
+  "pigeonz_mensagens",
+  "pigeonz_parceiro_pix",
+  "pigeonz_parceiros",
+  "pigeonz_user",
+  "pigeonz_user_pending"
+];
+keys.forEach(k => localStorage.removeItem(k));
+document.body.innerHTML = '<h2 style="color:#48e8a0;">Cache limpo! Redirecionando...</h2>';
+setTimeout(() => window.location.href = '/login', 1500);
+</script>
+</body></html>

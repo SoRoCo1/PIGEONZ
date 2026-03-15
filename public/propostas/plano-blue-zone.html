@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Zone — Plano de Desenvolvimento</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --red: #E63946;
+    --red-light: #ff4d5a;
+    --red-glow: rgba(230, 57, 70, 0.15);
+    --red-glow-strong: rgba(230, 57, 70, 0.3);
+    --navy: #f5f5fa;
+    --navy-deep: #eeeef6;
+    --navy-light: #e8e8f2;
+    --navy-surface: #ffffff;
+    --navy-border: #d8d8e8;
+    --text-primary: #1a1a2e;
+    --text-secondary: #4a4a68;
+    --text-muted: #8080a0;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy-deep);
+    color: var(--text-secondary);
+    line-height: 1.75;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 50px;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    text-align: center;
+    padding: 70px 50px 50px;
+    background: linear-gradient(170deg, #0f0f24 0%, #181838 40%, #1e1e42 100%);
+    border-bottom: 3px solid var(--red);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(230, 57, 70, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .header-logo {
+    display: block;
+    max-width: 300px;
+    margin: 0 auto 32px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+  }
+
+  .header-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--red);
+    margin: 0 auto 24px;
+    border-radius: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 8px 24px;
+    border-radius: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 20px var(--red-glow-strong);
+  }
+
+  .header .subtitle {
+    font-size: 20px;
+    color: #b0b0cc;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header .date {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #707090;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== INTRO ===== */
+  .intro {
+    background: var(--navy-surface);
+    border: 1px solid var(--navy-border);
+    border-left: 4px solid var(--red);
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .intro h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+
+  .intro p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  /* ===== PHASE ===== */
+  .phase {
+    margin-bottom: 56px;
+    page-break-inside: avoid;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--navy-border);
+  }
+
+  .phase-number {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--white);
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+
+  .phase-1 .phase-number {
+    background: linear-gradient(135deg, var(--red), #c0313e);
+  }
+  .phase-2 .phase-number {
+    background: linear-gradient(135deg, #1e1e42, #2a2a58);
+    border: 2px solid var(--red);
+  }
+  .phase-3 .phase-number {
+    background: var(--white);
+    border: 2px solid var(--red);
+    color: var(--red);
+  }
+
+  .phase-title h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+    letter-spacing: -0.5px;
+  }
+
+  .phase-title .timeline {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--red-light);
+    letter-spacing: 0.3px;
+  }
+
+  .phase-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    padding-left: 74px;
+    line-height: 1.8;
+  }
+
+  /* ===== DELIVERABLES ===== */
+  .deliverables {
+    padding-left: 74px;
+  }
+
+  .deliverable {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+
+  .deliverable:hover {
+    background: rgba(230, 57, 70, 0.03);
+  }
+
+  .deliverable .check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--navy-border);
+    flex-shrink: 0;
+    margin-top: 3px;
+    position: relative;
+  }
+
+  .phase-1 .deliverable .check { border-color: var(--red); background: rgba(230,57,70,0.08); }
+  .phase-2 .deliverable .check { border-color: var(--red); background: rgba(230,57,70,0.08); }
+  .phase-3 .deliverable .check { border-color: var(--red); background: rgba(230,57,70,0.08); }
+
+  .deliverable .text {
+    font-size: 14.5px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .deliverable .text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .deliverable .text .tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+    text-transform: uppercase;
+  }
+
+  .tag-site { background: #eeeef6; color: #5a5a80; border: 1px solid #d8d8e8; }
+  .tag-api { background: #fff0f0; color: var(--red); border: 1px solid rgba(230,57,70,0.2); }
+  .tag-mkt { background: #ecfdf5; color: #059669; border: 1px solid rgba(5,150,105,0.2); }
+  .tag-video { background: #fefce8; color: #b45309; border: 1px solid rgba(180,83,9,0.2); }
+
+  /* ===== PROVIDERS ===== */
+  .provider-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-left: 74px;
+    margin-bottom: 10px;
+  }
+
+  .provider-btn {
+    background: var(--white);
+    border: 2px solid var(--navy-border);
+    border-radius: 12px;
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    cursor: default;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .provider-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .provider-pagarme {
+    background: #ffffff;
+    border-color: #00A650;
+  }
+  .provider-pagarme:hover {
+    box-shadow: 0 4px 16px rgba(0,166,80,0.2);
+  }
+
+  .provider-mercadopago {
+    background: rgb(251,231,77);
+    border-color: #EDDA06;
+  }
+  .provider-mercadopago:hover {
+    box-shadow: 0 4px 16px rgba(237,218,6,0.3);
+  }
+
+  .provider-stripe {
+    background: #ffffff;
+    border-color: #635BFF;
+  }
+  .provider-stripe:hover {
+    box-shadow: 0 4px 16px rgba(99,91,255,0.2);
+  }
+
+  .provider-asaas {
+    background: rgb(4,20,137);
+    border-color: rgb(4,20,137);
+  }
+  .provider-asaas:hover {
+    box-shadow: 0 4px 16px rgba(23,70,162,0.2);
+  }
+
+  .provider-infinitypay {
+    background: #ffffff;
+    border-color: #A0E515;
+  }
+  .provider-infinitypay:hover {
+    box-shadow: 0 4px 16px rgba(160,229,21,0.2);
+  }
+
+  .provider-btn img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* ===== SUBSECTION ===== */
+  .subsection {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    padding-left: 74px;
+  }
+
+  .subsection h3 {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .subsection h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--navy-border);
+  }
+
+  /* ===== STACK TABLE ===== */
+  .stack-section {
+    margin-top: 56px;
+    margin-bottom: 56px;
+    page-break-inside: avoid;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--navy-border);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title .accent {
+    width: 4px;
+    height: 28px;
+    background: var(--red);
+    border-radius: 2px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  thead th {
+    text-align: left;
+    padding: 14px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--red);
+    background: #f8f8fc;
+    border-bottom: 2px solid #e0e0ec;
+  }
+
+  tbody td {
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--navy-surface);
+    color: var(--text-secondary);
+  }
+
+  tbody td:first-child {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  tbody tr:hover {
+    background: var(--navy-surface);
+  }
+
+  tbody td:last-child {
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  /* ===== COST ===== */
+  .cost-section {
+    background: linear-gradient(135deg, var(--navy-surface) 0%, var(--navy) 100%);
+    border: 1px solid var(--navy-border);
+    border-radius: 16px;
+    padding: 36px 40px;
+    margin-bottom: 56px;
+    page-break-inside: avoid;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cost-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--navy-border));
+  }
+
+  .cost-section h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    letter-spacing: -0.3px;
+  }
+
+  .cost-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+  }
+
+  .cost-card {
+    background: var(--white);
+    border: 1px solid var(--navy-border);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+
+  .cost-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--red);
+  }
+
+  .cost-card .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: var(--red);
+  }
+
+  .cost-card .price {
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--text-primary);
+    letter-spacing: -1px;
+  }
+
+  .cost-card .price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .cost-card .note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* ===== FLOW ===== */
+  .flow-section {
+    margin-bottom: 56px;
+    page-break-inside: avoid;
+  }
+
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-left: 20px;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    position: relative;
+    padding-bottom: 24px;
+  }
+
+  .flow-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 38px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--red), #d8d8e8);
+  }
+
+  .flow-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--white);
+    box-shadow: 0 3px 12px var(--red-glow-strong);
+  }
+
+  .flow-text {
+    padding-top: 6px;
+  }
+
+  .flow-text strong {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .flow-text p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ===== PENDING ===== */
+  .pending-section {
+    background: var(--navy-surface);
+    border: 1px solid var(--navy-border);
+    border-left: 4px solid var(--red);
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-bottom: 50px;
+    page-break-inside: avoid;
+  }
+
+  .pending-section h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--red);
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+  }
+
+  .pending-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding: 6px 0;
+  }
+
+  .pending-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    flex-shrink: 0;
+    box-shadow: 0 0 8px var(--red-glow-strong);
+  }
+
+  /* ===== FOOTER ===== */
+  .doc-footer {
+    text-align: center;
+    padding: 48px 50px;
+    background: linear-gradient(170deg, #181838 0%, #0f0f24 100%);
+    margin-top: 20px;
+    position: relative;
+  }
+
+  .doc-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--red);
+  }
+
+  .doc-footer .footer-logo {
+    max-width: 180px;
+    margin: 0 auto 14px;
+    display: block;
+    opacity: 0.9;
+  }
+
+  .doc-footer p {
+    font-size: 13px;
+    color: #8080a0;
+  }
+
+  .doc-footer .sig {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #2a2a50;
+    font-size: 12px;
+    color: #505070;
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: #fff; color: #333; }
+    .header { background: #fafafa; border-bottom-color: var(--red); }
+    .header::before, .header::after { display: none; }
+    .header .subtitle { color: #666; }
+    .header .date { color: #999; }
+    .intro { background: #fafafa; border-color: #e8e8e8; border-left-color: var(--red); }
+    .intro h2 { color: var(--red); }
+    .intro p { color: #555; }
+    .phase-title h2 { color: #1a1a2e; }
+    .phase-desc { color: #555; }
+    .deliverable:hover { background: none; }
+    .deliverable .text { color: #444; }
+    .deliverable .text strong { color: #1a1a2e; }
+    .subsection h3 { color: var(--red); }
+    .section-title { color: #1a1a2e; border-bottom-color: #e8e8e8; }
+    thead th { color: var(--red); background: #fafafa; border-bottom-color: #e8e8e8; }
+    tbody td { color: #555; border-bottom-color: #f0f0f0; }
+    tbody td:first-child { color: #1a1a2e; }
+    .cost-section { background: #fafafa; border-color: #e8e8e8; }
+    .cost-section::before { background: var(--red); }
+    .cost-section h2 { color: #1a1a2e; }
+    .cost-card { background: #fff; border-color: #e8e8e8; }
+    .cost-card .price { color: #1a1a2e; }
+    .flow-section h2 { color: #1a1a2e; }
+    .flow-text strong { color: #1a1a2e; }
+    .flow-text p { color: #777; }
+    .pending-section { background: #fff8f8; border-color: #f0e0e0; border-left-color: var(--red); }
+    .doc-footer { border-top-color: #e8e8e8; }
+    .doc-footer p { color: #999; }
+    .page { padding: 40px 30px; }
+    .cost-card:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <img src="logo-bluezone-white.png" alt="Blue Zone" class="header-logo">
+  <div class="header-divider"></div>
+  <div class="header-badge">Proposta de Desenvolvimento</div>
+  <div class="subtitle">Plataforma Digital de Marketing &amp; Infoprodutos</div>
+  <div class="date">Documento preparado em Marco de 2026</div>
+</div>
+
+<div class="page">
+
+<!-- INTRO -->
+<div class="intro">
+  <h2>Sobre o Projeto</h2>
+  <p>
+    Desenvolvimento de uma plataforma digital completa para a Blue Zone, incluindo site institucional,
+    landing pages de alta conversao para infoprodutos, integracao com meios de pagamento e,
+    futuramente, uma plataforma de cursos propria. O projeto segue uma estrategia em <strong style="color:var(--text-primary)">3 fases</strong>
+    para entregar valor rapidamente e escalar de forma sustentavel.
+  </p>
+</div>
+
+<!-- ========== FASE 1 ========== -->
+<div class="phase phase-1">
+  <div class="phase-header">
+    <div class="phase-number">1</div>
+    <div class="phase-title">
+      <h2>Landing Pages + Kiwify</h2>
+      <div class="timeline">Semanas 1-2 &mdash; Entrega rapida</div>
+    </div>
+  </div>
+
+  <div class="phase-desc">
+    Foco total em landing pages de alta conversao por infoproduto. O site principal recebe uma estrutura
+    basica funcional (esqueleto). O botao de compra redireciona diretamente para a Kiwify.
+  </div>
+
+  <div class="subsection"><h3>Site Principal (Esqueleto)</h3></div>
+  <div class="deliverables">
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Hero Section</strong> — titulo impactante, chamada para acao principal <span class="tag tag-site">SITE</span></div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Navegacao</strong> — navbar com links para secoes e produtos</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Secao de Produtos</strong> — cards dos infoprodutos com link para cada landing page</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Footer</strong> — contato, redes sociais, informacoes da empresa</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Responsivo</strong> — layout mobile funcional desde o dia 1</div>
+    </div>
+  </div>
+
+  <div class="subsection"><h3>Landing Pages por Infoproduto</h3></div>
+  <div class="deliverables">
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Pagina dinamica por produto</strong> — cada infoproduto com sua propria landing page <span class="tag tag-mkt">CONVERSAO</span></div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Video de vendas</strong> — embed de video principal do produto</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Beneficios + Bullets</strong> — secao persuasiva do que o aluno vai aprender</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Depoimentos</strong> — prova social com resultados de alunos</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>FAQ</strong> — perguntas frequentes em accordion</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>CTA "Comprar Agora"</strong> — botao que redireciona para checkout na Kiwify</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Selo de garantia</strong> — 7 ou 30 dias de garantia visivel</div>
+    </div>
+  </div>
+
+  <div class="subsection"><h3>Infraestrutura</h3></div>
+  <div class="deliverables">
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Deploy online</strong> — site acessivel via dominio <span class="tag tag-api">INFRA</span></div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Formulario de leads</strong> — captura nome + email + telefone</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Banco de dados</strong> — produtos e leads armazenados</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FASE 2 ========== -->
+<div class="phase phase-2">
+  <div class="phase-header">
+    <div class="phase-number">2</div>
+    <div class="phase-title">
+      <h2>Pagamento Integrado + Site Completo</h2>
+      <div class="timeline">Semanas 3-5 &mdash; Monetizacao propria</div>
+    </div>
+  </div>
+
+  <div class="phase-desc">
+    Integracao completa com API de pagamento. O cliente paga diretamente no site (sem sair para a Kiwify).
+    Apos confirmacao, recebe acesso automatico. Site principal ganha todas as secoes profissionais.
+  </div>
+
+  <div class="subsection"><h3>Integracao de Pagamento</h3></div>
+  <div class="deliverables">
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Checkout proprio</strong> — pagina de pagamento integrada ao site <span class="tag tag-api">API</span></div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>PIX</strong> — QR Code gerado automaticamente, confirmacao instantanea</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Cartao de credito</strong> — parcelamento configuravel por produto</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Boleto bancario</strong> — geracao automatica com vencimento</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Webhook de confirmacao</strong> — pagamento confirmado libera acesso automaticamente</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Email pos-compra</strong> — email automatico com link de acesso ao curso na Kiwify</div>
+    </div>
+  </div>
+
+  <div class="subsection"><h3>Provedores de Pagamento (a definir)</h3></div>
+  <div class="provider-grid">
+    <div class="provider-btn provider-pagarme">
+      <img src="logo-pagarme.png" alt="Pagar.me">
+    </div>
+    <div class="provider-btn provider-mercadopago">
+      <img src="logo-mercadopago.png" alt="Mercado Pago">
+    </div>
+    <div class="provider-btn provider-stripe">
+      <img src="logo-stripe.png" alt="Stripe">
+    </div>
+    <div class="provider-btn provider-asaas">
+      <img src="logo-asaas.png" alt="Asaas">
+    </div>
+    <div class="provider-btn provider-infinitypay">
+      <img src="logo-infinitypay.png" alt="InfinityPay">
+    </div>
+  </div>
+
+  <div class="subsection"><h3>Site Principal Completo</h3></div>
+  <div class="deliverables">
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Depoimentos em video</strong> — carrossel com resultados de alunos <span class="tag tag-mkt">CONVERSAO</span></div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Metricas e numeros</strong> — alunos, empresas atendidas, avaliacao media</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Marquee de logos</strong> — parceiros e clientes em carrossel animado</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Secao "Sobre"</strong> — historia e missao da Blue Zone</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Formulario de contato VIP</strong> — atendimento personalizado</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>SEO otimizado</strong> — meta tags, sitemap, Open Graph por pagina</div>
+    </div>
+  </div>
+
+  <div class="subsection"><h3>Mais Infoprodutos + Admin</h3></div>
+  <div class="deliverables">
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Cadastro de novos produtos</strong> — painel admin para adicionar/editar infoprodutos <span class="tag tag-api">ADMIN</span></div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Cupons de desconto</strong> — codigos promocionais por produto</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Dashboard de vendas</strong> — total vendido, pedidos, leads, metricas</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Google Analytics + Meta Pixel</strong> — rastreamento de conversoes</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FASE 3 ========== -->
+<div class="phase phase-3">
+  <div class="phase-header">
+    <div class="phase-number">3</div>
+    <div class="phase-title">
+      <h2>Plataforma de Cursos Propria</h2>
+      <div class="timeline">Semanas 6-10 &mdash; Independencia total</div>
+    </div>
+  </div>
+
+  <div class="phase-desc">
+    Construcao de uma plataforma de cursos completa, integrada ao site principal.
+    Substituicao gradual da Kiwify. A Blue Zone passa a ter controle total sobre a experiencia do aluno.
+  </div>
+
+  <div class="subsection"><h3>Plataforma de Video</h3></div>
+  <div class="deliverables">
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Player de video profissional</strong> — streaming com multiplas qualidades <span class="tag tag-video">VIDEO</span></div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Upload de videos grandes</strong> — suporte a arquivos de varios GB pelo admin</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>CDN global</strong> — videos carregam rapido de qualquer lugar do mundo</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Protecao de conteudo</strong> — URLs assinadas, anti-download, anti-pirataria</div>
+    </div>
+  </div>
+
+  <div class="subsection"><h3>Area do Aluno</h3></div>
+  <div class="deliverables">
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Login e cadastro proprio</strong> — sistema de autenticacao integrado <span class="tag tag-site">PLATAFORMA</span></div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Meus cursos</strong> — dashboard do aluno com todos os cursos adquiridos</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Modulos e aulas</strong> — organizacao hierarquica do conteudo</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Progresso do aluno</strong> — barra de progresso, aulas concluidas, onde parou</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Material complementar</strong> — PDFs, planilhas, downloads por aula</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Certificado de conclusao</strong> — gerado automaticamente em PDF</div>
+    </div>
+  </div>
+
+  <div class="subsection"><h3>Escalabilidade</h3></div>
+  <div class="deliverables">
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Assinaturas recorrentes</strong> — planos mensais/anuais com cobranca automatica <span class="tag tag-api">RECEITA</span></div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>Migracao dos alunos</strong> — transicao gradual da Kiwify para a plataforma propria</div>
+    </div>
+    <div class="deliverable">
+      <div class="check"></div>
+      <div class="text"><strong>App mobile (PWA)</strong> — acesso pelo celular como aplicativo nativo</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== STACK ========== -->
+<div class="stack-section">
+  <h2 class="section-title"><span class="accent"></span>Tecnologias Utilizadas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Camada</th>
+        <th>Tecnologia</th>
+        <th>Fase</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Frontend</td><td>Next.js + React + TypeScript + Tailwind CSS</td><td>1, 2, 3</td></tr>
+      <tr><td>Backend</td><td>Django REST Framework (Python)</td><td>1, 2, 3</td></tr>
+      <tr><td>Banco de Dados</td><td>PostgreSQL (gerenciado na nuvem)</td><td>1, 2, 3</td></tr>
+      <tr><td>Pagamento</td><td>API de pagamento brasileira (PIX, cartao, boleto)</td><td>2, 3</td></tr>
+      <tr><td>Hospedagem de Video</td><td>CDN especializada em streaming</td><td>3</td></tr>
+      <tr><td>Email Transacional</td><td>Servico de email automatizado</td><td>2, 3</td></tr>
+      <tr><td>Deploy / Hospedagem</td><td>Google Cloud Platform</td><td>1, 2, 3</td></tr>
+      <tr><td>Monitoramento</td><td>Rastreamento de erros em tempo real</td><td>2, 3</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ========== FLUXO ========== -->
+<div class="flow-section">
+  <h2 class="section-title"><span class="accent"></span>Jornada do Cliente</h2>
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-dot">1</div>
+      <div class="flow-text">
+        <strong>Descobre o site</strong>
+        <p>Via anuncio, redes sociais ou busca organica</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">2</div>
+      <div class="flow-text">
+        <strong>Navega o site principal</strong>
+        <p>Ve prova social, depoimentos, resultados de outros alunos</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">3</div>
+      <div class="flow-text">
+        <strong>Acessa a landing page do produto</strong>
+        <p>Video de vendas, beneficios, FAQ, garantia</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">4</div>
+      <div class="flow-text">
+        <strong>Clica em "Comprar Agora"</strong>
+        <p>Fase 1: redireciona para Kiwify &nbsp;|&nbsp; Fase 2+: checkout no proprio site</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">5</div>
+      <div class="flow-text">
+        <strong>Realiza o pagamento</strong>
+        <p>PIX (instantaneo), cartao de credito ou boleto</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">6</div>
+      <div class="flow-text">
+        <strong>Recebe acesso imediato</strong>
+        <p>Email automatico com link de acesso ao curso</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">7</div>
+      <div class="flow-text">
+        <strong>Assiste as aulas e evolui</strong>
+        <p>Fase 3: progresso salvo, certificado ao concluir</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PENDENCIAS ========== -->
+<div class="pending-section">
+  <h2>Informacoes Necessarias para Iniciar</h2>
+  <div class="pending-item"><div class="pending-dot"></div>Quantos infoprodutos serao lancados inicialmente?</div>
+  <div class="pending-item"><div class="pending-dot"></div>Nome e descricao de cada infoproduto</div>
+  <div class="pending-item"><div class="pending-dot"></div>Links dos cursos atuais na Kiwify</div>
+  <div class="pending-item"><div class="pending-dot"></div>Paleta de cores e identidade visual da Blue Zone</div>
+  <div class="pending-item"><div class="pending-dot"></div>Logo da empresa em alta resolucao</div>
+  <div class="pending-item"><div class="pending-dot"></div>Dominio do site (ja possui ou precisa registrar?)</div>
+  <div class="pending-item"><div class="pending-dot"></div>Videos de venda dos produtos</div>
+  <div class="pending-item"><div class="pending-dot"></div>Depoimentos e prova social (textos, videos, prints)</div>
+  <div class="pending-item"><div class="pending-dot"></div>Logos de parceiros/clientes para o site</div>
+  <div class="pending-item"><div class="pending-dot"></div>Textos e copy das landing pages</div>
+</div>
+
+</div><!-- /page -->
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <img src="logo-bluezone-white.png" alt="Blue Zone" class="footer-logo">
+  <p>Plataforma Digital de Marketing &amp; Infoprodutos</p>
+  <div class="sig">
+    Documento confidencial &mdash; Preparado por pigeonz.ai &mdash; Marco 2026
+  </div>
+</div>
+
+<!-- Botão Voltar fixo -->
+<a href="/painel/proposta" style="
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--red);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(230,57,70,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 9999;
+  letter-spacing: 0.5px;
+" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 28px rgba(230,57,70,0.5)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 20px rgba(230,57,70,0.4)'">
+  ← Voltar ao Painel
+</a>
+
+</body>
+</html>
